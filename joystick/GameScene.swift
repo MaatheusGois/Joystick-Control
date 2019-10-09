@@ -22,7 +22,6 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         backgroundColor = .white
-        anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         base.position = CGPoint(x: 0 , y: 0 )
         base.setScale(0.5)
@@ -42,15 +41,14 @@ class GameScene: SKScene {
         nave.yScale = 0.5
         
         nave.physicsBody = SKPhysicsBody(rectangleOf: nave.frame.size)
-        nave.physicsBody!.applyImpulse(CGVector(dx: 10, dy: 10))
+        nave.physicsBody?.applyImpulse(CGVector(dx: 10, dy: 10))
 
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom:CGRect(
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(
             x: self.frame.minX,
             y: self.frame.minY + nave.frame.size.height + 10,
             width: self.frame.size.width,
-            height: (self.frame.size.height - (nave.frame.size.height + 10) * 2))
-                )
+            height: (self.frame.size.height - (nave.frame.size.height + 10) * 2)))
         
         addChild(nave)
     }
@@ -89,8 +87,8 @@ class GameScene: SKScene {
                 
                 nave.zRotation = angulo - 1.57079633
                 
-                velocidadX = xDist / 49.0
-                velocidadY = yDist / 49.0
+                velocidadX = xDist / 16
+                velocidadY = yDist / 16
             }
         }
     }
@@ -98,18 +96,28 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if joysActivo == true {
             let retorno: SKAction = SKAction.move(to: base.position, duration: 0.05)
-            retorno.timingMode = SKActionTimingMode.easeOut
+            retorno.timingMode = .easeOut
             joys.run(retorno)
             joysActivo = false
             velocidadX = 0
             velocidadY = 0
         }
     }
-   
+    
+    var lastTime: TimeInterval = TimeInterval()
+    var deltaTime: TimeInterval = TimeInterval()
+    
     override func update(_ currentTime: CFTimeInterval) {
+        //Delta time garante que a velocidade vai ser sempre a mesma independente da velocidade do dispositivo.
+        
+        deltaTime = currentTime - lastTime
+        
+        
         if joysActivo == true {
-            nave.position = CGPoint(x: nave.position.x - (velocidadX*3), y: nave.position.y + (velocidadY*3))
+            nave.position = CGPoint(x: nave.position.x - (velocidadX),
+                                    y: nave.position.y + (velocidadY))
         }
+        lastTime = currentTime
     }
 }
 
