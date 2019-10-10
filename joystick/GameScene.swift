@@ -25,7 +25,7 @@ class GameScene: SKScene {
         backgroundColor = .white
         
         //Gera a posicao das partes do controle e os adiciona a SKView os escondendo
-        🕹️.setPosition(withLocation: CGPoint(x: 0, y: -size.height/3))
+        🕹️.setNewPosition(withLocation: CGPoint(x: 0, y: -size.height/3))
         addChild(🕹️)
         addChild(🕹️.child) //FIXME
         🕹️.hiden()
@@ -47,7 +47,7 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             if !🕹️.activo {
                 //Coloca o joystick onde o click comecou e inicia o movimento.
-                🕹️.setPosition(withLocation: CGPoint(x: location.x, y: location.y))
+                🕹️.setNewPosition(withLocation: CGPoint(x: location.x, y: location.y))
                 🕹️.activo = true
                 🕹️.show()
             }

@@ -6,18 +6,20 @@
 //  Copyright © 2019 Matheus Gois. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 
 class Joystick: SKShapeNode {
     
-    var activo: Bool = false
-    var radius: CGFloat = 0
-    var child: SKShapeNode = SKShapeNode()
+    public var activo: Bool = false
     
-    var vector: CGVector = CGVector()
-    var angulo: CGFloat = 0
-    var raio: CGFloat = 0
+    private(set) var radius: CGFloat = 0
+    private(set) var child: SKShapeNode = SKShapeNode()
+    
+    private(set) var vector: CGVector = CGVector()
+    private(set) var angle: CGFloat = 0
+    private(set) var raio: CGFloat = 0
+    
+    private var Radius90: CGFloat = 1.57079633
     
     override init() {
         super.init()
@@ -34,7 +36,8 @@ class Joystick: SKShapeNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createJoystickBase() {
+    
+    private func createJoystickBase() {
         self.path = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -radius,
                                                              y: -radius),
                                              size: CGSize(width: radius * 2,
@@ -46,7 +49,6 @@ class Joystick: SKShapeNode {
         self.zPosition = 1.0
     }
     
-    
     private func createJoystickBaseMain() {
         child = SKShapeNode(circleOfRadius: radius / 2)
         child.strokeColor = .black
@@ -55,14 +57,19 @@ class Joystick: SKShapeNode {
         child.zPosition = 2.0
     }
     
-    func getDist(withLocation location: CGPoint) -> (xDist: CGFloat, yDist: CGFloat) {
+    public func setNewPosition(withLocation location: CGPoint) {
+        self.position = location
+        self.child.position = location
+    }
+    
+    public func getDist(withLocation location: CGPoint) -> (xDist: CGFloat, yDist: CGFloat) {
         
         vector = CGVector(dx: location.x - self.position.x, dy: location.y - self.position.y)
-        angulo = atan2(vector.dy, vector.dx)
+        angle = atan2(vector.dy, vector.dx)
         raio = self.frame.size.height / 2
         
-        let xDist: CGFloat = sin(angulo - 1.57079633) * raio
-        let yDist: CGFloat = cos(angulo - 1.57079633) * raio
+        let xDist: CGFloat = sin(angle - Radius90) * raio
+        let yDist: CGFloat = cos(angle - Radius90) * raio
         
         if (self.frame.contains(location)) {
             self.child.position = location
@@ -73,28 +80,23 @@ class Joystick: SKShapeNode {
         return (xDist: xDist, yDist: yDist)
     }
     
-    func coreReturn() {
+    public func coreReturn() { //REMAKE - Mudar nome da funcao para ter mais coerencia.
         let retorno: SKAction = SKAction.move(to: self.position, duration: 0.05)
         retorno.timingMode = .easeOut
         child.run(retorno)
         activo = false
     }
     
-    func setPosition(withLocation location: CGPoint) {
-        self.position = location
-        self.child.position = location
+    public func getZRotation() -> CGFloat {
+        return angle - Radius90
     }
     
-    func getZRotation() -> CGFloat {
-        return angulo - 1.57079633
-    }
-    
-    func hiden() {
+    public func hiden() {
         self.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
         self.child.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
     }
     
-    func show() {
+    public func show() {
         self.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
         self.child.run(SKAction.fadeAlpha(to: 0.5, duration: 0.5))
     }
