@@ -52,8 +52,8 @@ class Joystick: SKShapeNode {
     private func createJoystickBaseMain() {
         child = SKShapeNode(circleOfRadius: radius / 2)
         child.strokeColor = .black
-        child.alpha = 0.5
-        child.lineWidth = 1.0
+        child.alpha = 0.3
+        child.lineWidth = 0.7
         child.zPosition = 2.0
     }
     
@@ -66,7 +66,7 @@ class Joystick: SKShapeNode {
         
         vector = CGVector(dx: location.x - self.position.x, dy: location.y - self.position.y)
         angle = atan2(vector.dy, vector.dx)
-        raio = self.frame.size.height / 2
+        raio = self.frame.size.height / 2.0
         
         let xDist: CGFloat = sin(angle - radius90) * raio
         let yDist: CGFloat = cos(angle - radius90) * raio
@@ -92,12 +92,12 @@ class Joystick: SKShapeNode {
     }
     
     public func hiden() {
-        self.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
-        self.child.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
+        self.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
+        self.child.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
     }
     
     public func show() {
         self.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
-        self.child.run(SKAction.fadeAlpha(to: 0.5, duration: 0.5))
+        self.child.run(SKAction.fadeAlpha(to: 0.3, duration: 0.5))
     }
 }
