@@ -10,12 +10,14 @@ import Foundation
 import SpriteKit
 
 class Joystick: SKShapeNode {
+    
     var activo: Bool = false
     var radius: CGFloat = 0
+    var child: SKShapeNode = SKShapeNode()
+    
     var vector: CGVector = CGVector()
     var angulo: CGFloat = 0
     var raio: CGFloat = 0
-    var child: SKShapeNode = SKShapeNode()
     
     override init() {
         super.init()
@@ -67,6 +69,7 @@ class Joystick: SKShapeNode {
         } else {
             self.child.position = CGPoint(x: self.position.x - xDist, y: self.position.y + yDist)
         }
+        
         return (xDist: xDist, yDist: yDist)
     }
     
@@ -79,11 +82,20 @@ class Joystick: SKShapeNode {
     
     func setPosition(withLocation location: CGPoint) {
         self.position = location
-//        self.child.position = location
+        self.child.position = location
     }
     
     func getZRotation() -> CGFloat {
         return angulo - 1.57079633
     }
     
+    func hiden() {
+        self.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
+        self.child.run(SKAction.fadeAlpha(to: 0, duration: 0.5))
+    }
+    
+    func show() {
+        self.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
+        self.child.run(SKAction.fadeAlpha(to: 0.5, duration: 0.5))
+    }
 }
