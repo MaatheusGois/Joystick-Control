@@ -38,10 +38,8 @@ class Joystick: SKShapeNode {
     
     
     private func createJoystickBase() {
-        self.path = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -radius,
-                                                             y: -radius),
-                                             size: CGSize(width: radius * 2,
-                                                          height: radius * 2)),
+        self.path = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -radius, y: -radius),
+                                             size:   CGSize(width: radius * 2, height: radius * 2)),
                                              transform: nil)
         self.strokeColor = .black
         self.alpha = 0.2
@@ -64,7 +62,8 @@ class Joystick: SKShapeNode {
     
     public func getDist(withLocation location: CGPoint) -> (xDist: CGFloat, yDist: CGFloat) {
         
-        vector = CGVector(dx: location.x - self.position.x, dy: location.y - self.position.y)
+        vector = CGVector(dx: location.x - self.position.x,
+                          dy: location.y - self.position.y)
         angle = atan2(vector.dy, vector.dx)
         raio = self.frame.size.height / 2.0
         
@@ -74,7 +73,8 @@ class Joystick: SKShapeNode {
         if (self.frame.contains(location)) {
             self.child.position = location
         } else {
-            self.child.position = CGPoint(x: self.position.x - xDist, y: self.position.y + yDist)
+            self.child.position = CGPoint(x: self.position.x - xDist,
+                                          y: self.position.y + yDist)
         }
         
         return (xDist: xDist, yDist: yDist)

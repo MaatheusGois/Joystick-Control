@@ -32,7 +32,8 @@ class GameScene: SKScene {
         
         //Configura a Nave
         nave.physicsBody = SKPhysicsBody(rectangleOf: nave.frame.size)
-        nave.position = CGPoint(x: self.frame.midX,y: self.frame.midY)
+        nave.position = CGPoint(x: self.frame.midX,
+                                y: self.frame.midY)
         nave.xScale = 0.5
         nave.yScale = 0.5
         
@@ -40,6 +41,10 @@ class GameScene: SKScene {
         
         //Deixa a gravidade valendo 0
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x:      self.frame.minX,
+                                                              y:      self.frame.minY,
+                                                              width:  self.frame.size.width,
+                                                              height: self.frame.size.height))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
