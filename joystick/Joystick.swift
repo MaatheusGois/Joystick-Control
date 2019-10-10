@@ -19,7 +19,7 @@ class Joystick: SKShapeNode {
     private(set) var angle: CGFloat = 0
     private(set) var raio: CGFloat = 0
     
-    private var Radius90: CGFloat = 1.57079633
+    private var radius90: CGFloat = 1.57079633
     
     override init() {
         super.init()
@@ -68,8 +68,8 @@ class Joystick: SKShapeNode {
         angle = atan2(vector.dy, vector.dx)
         raio = self.frame.size.height / 2
         
-        let xDist: CGFloat = sin(angle - Radius90) * raio
-        let yDist: CGFloat = cos(angle - Radius90) * raio
+        let xDist: CGFloat = sin(angle - radius90) * raio
+        let yDist: CGFloat = cos(angle - radius90) * raio
         
         if (self.frame.contains(location)) {
             self.child.position = location
@@ -88,7 +88,7 @@ class Joystick: SKShapeNode {
     }
     
     public func getZRotation() -> CGFloat {
-        return angle - Radius90
+        return angle - radius90
     }
     
     public func hiden() {

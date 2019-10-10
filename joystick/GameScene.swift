@@ -18,7 +18,7 @@ class GameScene: SKScene {
     var lastTime: TimeInterval = TimeInterval()
     var deltaTime: TimeInterval = TimeInterval()
     
-    var 🕹️: Joystick = Joystick(radius: 100)
+    var 🕹️: Joystick = Joystick(radius: 50)
     
     override func didMove(to view: SKView) {
         
