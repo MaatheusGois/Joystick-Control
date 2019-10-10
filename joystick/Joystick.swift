@@ -79,7 +79,11 @@ class Joystick: SKShapeNode {
     
     func setPosition(withLocation location: CGPoint) {
         self.position = location
-        self.child.position = location
+//        self.child.position = location
+    }
+    
+    func getZRotation() -> CGFloat {
+        return angulo - 1.57079633
     }
     
 }

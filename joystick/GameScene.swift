@@ -23,7 +23,7 @@ class GameScene: SKScene {
         
         🕹️.setPosition(withLocation: CGPoint(x: 0, y: -size.height/3))
         addChild(🕹️)
-        addChild(🕹️.child)
+        addChild(🕹️.child) //FIXME
         
 
         nave.physicsBody = SKPhysicsBody(rectangleOf: nave.frame.size)
@@ -31,7 +31,6 @@ class GameScene: SKScene {
         nave.xScale = 0.5
         nave.yScale = 0.5
         
-    
         addChild(nave)
         
         //Deixa a gravidade valendo 0
@@ -41,17 +40,18 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            🕹️.activo = 🕹️.child.frame.contains(location) ? true : false
+            🕹️.activo = 🕹️.frame.contains(location) ? true : false
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            
             if 🕹️.activo {
                 let dist = 🕹️.getDist(withLocation: location)
+                nave.zRotation = 🕹️.getZRotation()
                 
-                nave.zRotation = 🕹️.angulo - 1.57079633
                 velocidadX = dist.xDist / 16
                 velocidadY = dist.yDist / 16
             }
