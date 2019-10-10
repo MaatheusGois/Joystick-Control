@@ -15,6 +15,7 @@
 		820E4BA3234E8031002F64C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 820E4BA1234E8031002F64C4 /* Main.storyboard */; };
 		820E4BA5234E8034002F64C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 820E4BA4234E8034002F64C4 /* Assets.xcassets */; };
 		820E4BA8234E8034002F64C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 820E4BA6234E8034002F64C4 /* LaunchScreen.storyboard */; };
+		820E4BB0234E90AC002F64C4 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820E4BAF234E90AC002F64C4 /* Joystick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		820E4BA4234E8034002F64C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		820E4BA7234E8034002F64C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		820E4BA9234E8034002F64C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		820E4BAF234E90AC002F64C4 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				820E4B99234E8031002F64C4 /* GameScene.sks */,
 				820E4B9B234E8031002F64C4 /* Actions.sks */,
 				820E4B9D234E8031002F64C4 /* GameScene.swift */,
+				820E4BAF234E90AC002F64C4 /* Joystick.swift */,
 				820E4B9F234E8031002F64C4 /* GameViewController.swift */,
 				820E4BA1234E8031002F64C4 /* Main.storyboard */,
 				820E4BA4234E8034002F64C4 /* Assets.xcassets */,
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				820E4B9E234E8031002F64C4 /* GameScene.swift in Sources */,
+				820E4BB0234E90AC002F64C4 /* Joystick.swift in Sources */,
 				820E4BA0234E8031002F64C4 /* GameViewController.swift in Sources */,
 				820E4B98234E8031002F64C4 /* AppDelegate.swift in Sources */,
 			);
