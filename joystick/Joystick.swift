@@ -88,7 +88,7 @@ class Joystick: SKShapeNode {
     }
     
     public func getZRotation() -> CGFloat {
-        return angle - radius90
+        return angle + radius90
     }
     
     public func hiden() {

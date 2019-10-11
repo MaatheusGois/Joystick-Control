@@ -15,9 +15,6 @@ class GameScene: SKScene {
     var velocidadX: CGFloat = 0.0
     var velocidadY: CGFloat = 0.0
     
-    var lastTime: TimeInterval = TimeInterval()
-    var deltaTime: TimeInterval = TimeInterval()
-    
     var 🕹️: Joystick = Joystick(radius: 50)
     
     override func didMove(to view: SKView) {
@@ -72,34 +69,22 @@ class GameScene: SKScene {
                 nave.zRotation = 🕹️.getZRotation()
                 
                 //Diivide a velocidade por 16 para diminui-la
-                velocidadX = dist.xDist / 16
-                velocidadY = dist.yDist / 16
+                velocidadX = dist.xDist * 100
+                velocidadY = dist.yDist * 100
             }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if 🕹️.activo {
-            //Quando o toque acaba o botao central do joystick volta para a posicao inicial e a velocidade
-            //da nave é passada para 0.
             🕹️.coreReturn()
-            velocidadX = 0
-            velocidadY = 0
+            nave.physicsBody?.applyForce(CGVector(dx: velocidadX, dy: -velocidadY))
             🕹️.hiden()
         }
     }
     
     override func update(_ currentTime: CFTimeInterval) {
-        //Delta time garante que a velocidade vai ser sempre a mesma independente da velocidade do dispositivo.
-        deltaTime = currentTime - lastTime //TODO - Fazer a velocidade ser multipliacada por essa variavel
-        
-        if 🕹️.activo {
-            nave.position = CGPoint(x: nave.position.x - (velocidadX),
-                                    y: nave.position.y + (velocidadY))
-        }
-        
-        
-        lastTime = currentTime
+        //...
     }
 }
 
