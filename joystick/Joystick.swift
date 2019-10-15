@@ -41,16 +41,16 @@ class Joystick: SKShapeNode {
         self.path = CGPath(ellipseIn: CGRect(origin: CGPoint(x: -radius, y: -radius),
                                              size:   CGSize(width: radius * 2, height: radius * 2)),
                                              transform: nil)
-        self.strokeColor = .black
-        self.alpha = 0.2
+        self.strokeColor = .white
+        self.alpha = 0.3
         self.lineWidth = 0.5
         self.zPosition = 1.0
     }
     
     private func createJoystickBaseMain() {
         child = SKShapeNode(circleOfRadius: radius / 2)
-        child.strokeColor = .black
-        child.alpha = 0.3
+        child.strokeColor = .white
+        child.alpha = 0.5
         child.lineWidth = 0.7
         child.zPosition = 2.0
     }

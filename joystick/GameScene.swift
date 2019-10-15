@@ -11,6 +11,7 @@ import SpriteKit
 class GameScene: SKScene {
     
     let nave = SKSpriteNode(imageNamed: "ship")
+    var background = SKSpriteNode(imageNamed: "background")
     
     var velocidadX: CGFloat = 0.0
     var velocidadY: CGFloat = 0.0
@@ -21,7 +22,7 @@ class GameScene: SKScene {
     var 🕹️: Joystick = Joystick(radius: 50)
     
     override func didMove(to view: SKView) {
-        
+                
         backgroundColor = .white
         
         //Gera a posicao das partes do controle e os adiciona a SKView os escondendo
@@ -41,10 +42,14 @@ class GameScene: SKScene {
         
         //Deixa a gravidade valendo 0
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x:      self.frame.minX,
-                                                              y:      self.frame.minY,
-                                                              width:  self.frame.size.width,
-                                                              height: self.frame.size.height))
+        
+        
+        addChild(background)
+        background.setScale(5)
+        background.zPosition = -1
+        
+        //Seta a nave no meio do fundo
+        background.position = nave.position
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -83,8 +88,10 @@ class GameScene: SKScene {
             //Quando o toque acaba o botao central do joystick volta para a posicao inicial e a velocidade
             //da nave é passada para 0.
             🕹️.coreReturn()
+
             velocidadX = 0
             velocidadY = 0
+            
             🕹️.hiden()
         }
     }
@@ -94,8 +101,8 @@ class GameScene: SKScene {
         deltaTime = currentTime - lastTime //TODO - Fazer a velocidade ser multipliacada por essa variavel
         
         if 🕹️.activo {
-            nave.position = CGPoint(x: nave.position.x - (velocidadX),
-                                    y: nave.position.y + (velocidadY))
+            background.position = CGPoint(x: background.position.x + (velocidadX),
+                                          y: background.position.y - (velocidadY))
         }
         
         
