@@ -14,6 +14,10 @@
 		820E4BA5234E8034002F64C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 820E4BA4234E8034002F64C4 /* Assets.xcassets */; };
 		820E4BA8234E8034002F64C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 820E4BA6234E8034002F64C4 /* LaunchScreen.storyboard */; };
 		820E4BB0234E90AC002F64C4 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820E4BAF234E90AC002F64C4 /* Joystick.swift */; };
+		82EE0568235638D00055D3B4 /* map.sks in Resources */ = {isa = PBXBuildFile; fileRef = 82EE0567235638D00055D3B4 /* map.sks */; };
+		82EE056D235639730055D3B4 /* map.json in Resources */ = {isa = PBXBuildFile; fileRef = 82EE056C235639730055D3B4 /* map.json */; };
+		82EE056F235639D10055D3B4 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EE056E235639D10055D3B4 /* Map.swift */; };
+		82EE0571235639E50055D3B4 /* MapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EE0570235639E50055D3B4 /* MapHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		820E4BA7234E8034002F64C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		820E4BA9234E8034002F64C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		820E4BAF234E90AC002F64C4 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
+		82EE0567235638D00055D3B4 /* map.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = map.sks; sourceTree = "<group>"; };
+		82EE056C235639730055D3B4 /* map.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = map.json; sourceTree = "<group>"; };
+		82EE056E235639D10055D3B4 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		82EE0570235639E50055D3B4 /* MapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +69,7 @@
 				820E4B97234E8031002F64C4 /* AppDelegate.swift */,
 				820E4BAF234E90AC002F64C4 /* Joystick.swift */,
 				820E4B9D234E8031002F64C4 /* GameScene.swift */,
+				82EE0569235639000055D3B4 /* Map */,
 				820E4B9F234E8031002F64C4 /* GameViewController.swift */,
 				820E4BA1234E8031002F64C4 /* Main.storyboard */,
 				820E4BA4234E8034002F64C4 /* Assets.xcassets */,
@@ -68,6 +77,17 @@
 				820E4BA9234E8034002F64C4 /* Info.plist */,
 			);
 			path = joystick;
+			sourceTree = "<group>";
+		};
+		82EE0569235639000055D3B4 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				82EE0567235638D00055D3B4 /* map.sks */,
+				82EE056C235639730055D3B4 /* map.json */,
+				82EE056E235639D10055D3B4 /* Map.swift */,
+				82EE0570235639E50055D3B4 /* MapHandler.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,8 +148,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82EE0568235638D00055D3B4 /* map.sks in Resources */,
 				820E4BA3234E8031002F64C4 /* Main.storyboard in Resources */,
 				820E4BA5234E8034002F64C4 /* Assets.xcassets in Resources */,
+				82EE056D235639730055D3B4 /* map.json in Resources */,
 				820E4BA8234E8034002F64C4 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +163,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82EE056F235639D10055D3B4 /* Map.swift in Sources */,
+				82EE0571235639E50055D3B4 /* MapHandler.swift in Sources */,
 				820E4B9E234E8031002F64C4 /* GameScene.swift in Sources */,
 				820E4BB0234E90AC002F64C4 /* Joystick.swift in Sources */,
 				820E4BA0234E8031002F64C4 /* GameViewController.swift in Sources */,

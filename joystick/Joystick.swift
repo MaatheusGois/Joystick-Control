@@ -19,6 +19,9 @@ class Joystick: SKShapeNode {
     private(set) var angle: CGFloat = 0
     private(set) var raio: CGFloat = 0
     
+    public var vDx: CGFloat = CGFloat()
+    public var vDy: CGFloat = CGFloat()
+    
     private var radius90: CGFloat = 1.57079633
     
     override init() {
@@ -56,35 +59,36 @@ class Joystick: SKShapeNode {
     }
     
     public func setNewPosition(withLocation location: CGPoint) {
-        self.position = location
-        self.child.position = location
+        position = location
+        child.position = location
     }
     
-    public func getDist(withLocation location: CGPoint) -> (xDist: CGFloat, yDist: CGFloat) {
+    public func getDist(withLocation location: CGPoint) {
         
-        vector = CGVector(dx: location.x - self.position.x,
-                          dy: location.y - self.position.y)
+        vector = CGVector(dx: location.x - position.x,
+                          dy: location.y - position.y)
         angle = atan2(vector.dy, vector.dx)
-        raio = self.frame.size.height / 2.0
+        raio  = frame.size.height / 2.0
         
-        let xDist: CGFloat = sin(angle - radius90) * raio
-        let yDist: CGFloat = cos(angle - radius90) * raio
+        vDx = sin(angle - radius90) * raio
+        vDy = cos(angle - radius90) * raio
         
-        if (self.frame.contains(location)) {
-            self.child.position = location
+        if (frame.contains(location)) {
+            child.position = location
         } else {
-            self.child.position = CGPoint(x: self.position.x - xDist,
-                                          y: self.position.y + yDist)
+            child.position = CGPoint(x: position.x - vDx,
+                                     y: position.y + vDy)
         }
-        
-        return (xDist: xDist, yDist: yDist)
     }
     
     public func coreReturn() { //REMAKE - Mudar nome da funcao para ter mais coerencia.
-        let retorno: SKAction = SKAction.move(to: self.position, duration: 0.05)
+        let retorno: SKAction = SKAction.move(to: position, duration: 0.05)
         retorno.timingMode = .easeOut
         child.run(retorno)
         activo = false
+        //TODO - suavisar retorno
+        vDx = 0
+        vDy = 0
     }
     
     public func getZRotation() -> CGFloat {
@@ -92,12 +96,12 @@ class Joystick: SKShapeNode {
     }
     
     public func hiden() {
-        self.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
-        self.child.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
+        run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
+        child.run(SKAction.fadeAlpha(to: 0.0, duration: 0.5))
     }
     
     public func show() {
-        self.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
-        self.child.run(SKAction.fadeAlpha(to: 0.3, duration: 0.5))
+        run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
+        child.run(SKAction.fadeAlpha(to: 0.3, duration: 0.5))
     }
 }
