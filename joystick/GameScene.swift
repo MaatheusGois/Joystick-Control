@@ -18,6 +18,18 @@ class GameScene: SKScene {
     var lastTime: TimeInterval = TimeInterval()
     var deltaTime: TimeInterval = TimeInterval()
     
+    //TEXTURE
+    private let N: SKTextureAtlas = SKTextureAtlas(named: "N")
+    private let NE: SKTextureAtlas = SKTextureAtlas(named: "NE")
+    private let L: SKTextureAtlas = SKTextureAtlas(named: "L")
+    private let SE: SKTextureAtlas = SKTextureAtlas(named: "SE")
+    
+    private let S: SKTextureAtlas = SKTextureAtlas(named: "S")
+    private let SO: SKTextureAtlas = SKTextureAtlas(named: "SO")
+    private let O: SKTextureAtlas = SKTextureAtlas(named: "O")
+    private let NO: SKTextureAtlas = SKTextureAtlas(named: "NO")
+    
+    
     var 🕹️: Joystick = Joystick(radius: 50)
     
     override func didMove(to view: SKView) {
@@ -70,12 +82,60 @@ class GameScene: SKScene {
                 
                 //Retorna para onde a nave deve apontar
                 nave.zRotation = 🕹️.getZRotation()
+                playerMovedFor(zRotation: nave.zRotation )
+                
+                
                 
                 //Diivide a velocidade por 16 para diminui-la
                 velocidadX = dist.xDist / 16
                 velocidadY = dist.yDist / 16
             }
         }
+    }
+    
+    
+    func playerMovedFor(zRotation: CGFloat) {
+        // 0.5 = 90 graus
+        // x = 0.5 / 2
+        // y = 0.5 / 4
+        switch zRotation / .pi {
+            
+            case 0 ..< 0.125:
+                print("N")
+            
+            case -0.125 ..< 0:
+                print("N")
+            
+            case -0.375 ..< -0.125:
+                print("NE")
+            
+            case -0.625 ..< -0.375:
+                print("L")
+            
+            case -0.875 ..< -0.625:
+                print("SE")
+            
+            case -1.125 ..< -0.875:
+                print("S")
+            
+            case -1.375 ..< -1.125:
+                print("SO")
+            
+            case -1.5 ..< -1.375:
+                print("O")
+            
+            case 0.375 ..< 0.5:
+                print("O")
+            
+            case 0 ..< 0.375:
+                print("NO")
+            default:
+                print("RUIM")
+        }
+    }
+    
+    func switchTexture() {
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
