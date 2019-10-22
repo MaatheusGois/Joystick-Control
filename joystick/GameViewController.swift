@@ -11,9 +11,18 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    let N = SKTextureAtlas(named: "N")
+    let L = SKTextureAtlas(named: "L")
+    let O = SKTextureAtlas(named: "O")
+    let S = SKTextureAtlas(named: "S")
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SKTextureAtlas.preloadTextureAtlases([N, L, O, S], withCompletionHandler: {() -> Void in
+            NSLog("Preload Texture Atlases Completed...")
+        })
         
         guard let view: SKView = self.view as? SKView else { return }
             

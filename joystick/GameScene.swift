@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    let nave = SKSpriteNode(imageNamed: "ship")
+    let player = SKSpriteNode(imageNamed: "N_00")
     
     var velocidadX: CGFloat = 0.0
     var velocidadY: CGFloat = 0.0
@@ -18,16 +18,9 @@ class GameScene: SKScene {
     var lastTime: TimeInterval = TimeInterval()
     var deltaTime: TimeInterval = TimeInterval()
     
-    //TEXTURE
-    private let N: SKTextureAtlas = SKTextureAtlas(named: "N")
-    private let NE: SKTextureAtlas = SKTextureAtlas(named: "NE")
-    private let L: SKTextureAtlas = SKTextureAtlas(named: "L")
-    private let SE: SKTextureAtlas = SKTextureAtlas(named: "SE")
-    
-    private let S: SKTextureAtlas = SKTextureAtlas(named: "S")
-    private let SO: SKTextureAtlas = SKTextureAtlas(named: "SO")
-    private let O: SKTextureAtlas = SKTextureAtlas(named: "O")
-    private let NO: SKTextureAtlas = SKTextureAtlas(named: "NO")
+    var textures = [[SKTexture]]()
+    let textureNames = ["N","NE","L","SE","S","SO","O","NO"]
+    var lastMoved = ""
     
     
     var 🕹️: Joystick = Joystick(radius: 50)
@@ -36,6 +29,9 @@ class GameScene: SKScene {
         
         backgroundColor = .white
         
+        //LOAD
+        loadTextures()
+        
         //Gera a posicao das partes do controle e os adiciona a SKView os escondendo
         🕹️.setNewPosition(withLocation: CGPoint(x: 0, y: -size.height/3))
         addChild(🕹️)
@@ -43,13 +39,13 @@ class GameScene: SKScene {
         🕹️.hiden()
         
         //Configura a Nave
-        nave.physicsBody = SKPhysicsBody(rectangleOf: nave.frame.size)
-        nave.position = CGPoint(x: self.frame.midX,
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.frame.size)
+        player.position = CGPoint(x: self.frame.midX,
                                 y: self.frame.midY)
-        nave.xScale = 0.5
-        nave.yScale = 0.5
+        player.xScale = 1
+        player.yScale = 1
         
-        addChild(nave)
+        addChild(player)
         
         //Deixa a gravidade valendo 0
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -57,7 +53,8 @@ class GameScene: SKScene {
                                                               y:      self.frame.minY,
                                                               width:  self.frame.size.width,
                                                               height: self.frame.size.height))
-    }
+        
+        }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -81,8 +78,8 @@ class GameScene: SKScene {
                 let dist = 🕹️.getDist(withLocation: location)
                 
                 //Retorna para onde a nave deve apontar
-                nave.zRotation = 🕹️.getZRotation()
-                playerMovedFor(zRotation: nave.zRotation )
+//                nave.zRotation = 🕹️.getZRotation()
+                playerMovedFor(zRotation: 🕹️.getZRotation())
                 
                 
                 
@@ -100,32 +97,36 @@ class GameScene: SKScene {
         // y = 0.5 / 4
         switch zRotation / .pi {
             
-            case 0 ..< 0.125:
+            case -0.125 ..< 0.125:
                 print("N")
-            
-            case -0.125 ..< 0:
-                print("N")
+                animateFor(for: "N")
             
             case -0.375 ..< -0.125:
                 print("NE")
             
             case -0.625 ..< -0.375:
                 print("L")
+                animateFor(for: "L")
             
             case -0.875 ..< -0.625:
                 print("SE")
             
             case -1.125 ..< -0.875:
                 print("S")
+                animateFor(for: "S")
             
             case -1.375 ..< -1.125:
                 print("SO")
             
             case -1.5 ..< -1.375:
                 print("O")
+                animateFor(for: "O")
+                
             
             case 0.375 ..< 0.5:
                 print("O")
+                animateFor(for: "O")
+                
             
             case 0 ..< 0.375:
                 print("NO")
@@ -134,9 +135,38 @@ class GameScene: SKScene {
         }
     }
     
-    func switchTexture() {
-        
+    func animateFor(for position: String) {
+        if lastMoved != position {
+            guard let index = textureNames.firstIndex(of: position) else { return }
+            animate(in: player, with: textures[index])
+            lastMoved = position
+        }
     }
+
+    func animate(in obj: SKSpriteNode, with frames: [SKTexture]) {
+        let animate = SKAction.animate(with: frames, timePerFrame: 1 / (TimeInterval(frames.count)))
+        obj.run(SKAction.repeatForever(animate), withKey: "moved")
+    }
+    
+    func buildAtlasTexture(to name: String) -> [SKTexture] {
+      let animatedAtlas = SKTextureAtlas(named: name)
+      var frames: [SKTexture] = []
+
+      let numImages = animatedAtlas.textureNames.count
+      for i in 0..<numImages {
+        let textureName = "\(name)_0\(i)"
+        frames.append(animatedAtlas.textureNamed(textureName))
+      }
+      return frames
+    }
+    
+    func loadTextures() {
+        for name in textureNames {
+            textures.append(buildAtlasTexture(to: name))
+        }
+    }
+
+    
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if 🕹️.activo {
@@ -146,6 +176,7 @@ class GameScene: SKScene {
             velocidadX = 0
             velocidadY = 0
             🕹️.hiden()
+            player.removeAction(forKey: "moved")
         }
     }
     
@@ -154,8 +185,8 @@ class GameScene: SKScene {
         deltaTime = currentTime - lastTime //TODO - Fazer a velocidade ser multipliacada por essa variavel
         
         if 🕹️.activo {
-            nave.position = CGPoint(x: nave.position.x - (velocidadX),
-                                    y: nave.position.y + (velocidadY))
+            player.position = CGPoint(x: player.position.x - (velocidadX),
+                                    y: player.position.y + (velocidadY))
         }
         
         
