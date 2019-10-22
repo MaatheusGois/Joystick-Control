@@ -73,7 +73,7 @@ class SpriteComponent: GKComponent {
     func animateFor(for position: String) {
         if lastMoved != position {
             guard let index = textureNames.firstIndex(of: position) else { return }
-            animate(in: player, with: textures[index])
+            animate(in: node, with: textures[index])
             lastMoved = position
         }
     }
