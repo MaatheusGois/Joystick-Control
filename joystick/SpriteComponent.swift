@@ -26,7 +26,7 @@ class SpriteComponent: GKComponent {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func playerMovedFor(zRotation: CGFloat) {
+    func runTo(zRotation: CGFloat) {
         // 0.5 = 90 graus
         // x = 0.5 / 2
         // y = 0.5 / 4
